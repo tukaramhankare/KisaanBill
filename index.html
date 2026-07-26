@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+  <meta name="theme-color" id="metaTheme" content="#1e1e1e"/>
+  <title>KisaanBill – Tractor Rent Invoice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="icon-btn" id="menuBtn" aria-label="Menu">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="brand">
+    <span class="brand-icon">🚜</span>
+    <span class="brand-name">KisaanBill</span>
+  </div>
+  <nav class="topnav" id="topnav">
+    <button class="tnav active" data-tab="builder">Builder</button>
+    <button class="tnav" data-tab="presets">Presets</button>
+    <button class="tnav" data-tab="preview">Preview</button>
+    <button class="tnav" data-tab="export">Export</button>
+  </nav>
+  <div class="topbar-right">
+    <!-- Theme pill -->
+    <div class="theme-pill" id="themePill">
+      <button class="tp-btn active" data-theme="light" title="Light">☀️</button>
+      <button class="tp-btn" data-theme="gray" title="Gray">🌫️</button>
+      <button class="tp-btn" data-theme="premium-gray" title="Premium Gray">💎</button>
+      <button class="tp-btn" data-theme="dark" title="Dark">🌙</button>
+    </div>
+    <button class="icon-btn about-btn" id="aboutBtn" title="About">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- SIDEBAR OVERLAY + PANEL -->
+<div class="sb-overlay" id="sbOverlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sb-head">
+    <div class="brand"><span class="brand-icon">🚜</span><span class="brand-name">KisaanBill</span></div>
+    <button class="icon-btn" id="sbClose"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <nav class="sb-nav">
+    <button class="snav active" data-tab="builder"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>Invoice Builder</button>
+    <button class="snav" data-tab="presets"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>Presets Manager</button>
+    <button class="snav" data-tab="preview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Preview Invoice</button>
+    <button class="snav" data-tab="export"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export Invoice</button>
+  </nav>
+  <div class="sb-divider"></div>
+  <div class="sb-theme-sec">
+    <div class="sb-sec-label">Theme</div>
+    <div class="sb-theme-btns">
+      <button class="stb active" data-theme="light">☀️ Light</button>
+      <button class="stb" data-theme="gray">🌫️ Gray</button>
+      <button class="stb" data-theme="premium-gray">💎 Premium Gray</button>
+      <button class="stb" data-theme="dark">🌙 Dark</button>
+    </div>
+  </div>
+  <div class="sb-foot">KisaanBill v5.0 &nbsp;·&nbsp; 100% Offline<br>Data stored on your device 🇮🇳</div>
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="main">
+
+  <!-- ── TAB: BUILDER ── -->
+  <section class="tab active" id="tab-builder">
+    <div class="quick-bar hidden" id="quickBar">
+      <span class="qb-label">⚡ Quick Apply</span>
+      <div class="qb-pills" id="qbPills"></div>
+    </div>
+    <div class="page-head"><h1>Invoice Builder</h1><p>Fill in details — totals update live. Use ⚡ Quick Apply to auto-fill saved setups.</p></div>
+
+    <!-- Invoice Info -->
+    <div class="card">
+      <div class="card-title">🧾 Invoice Information</div>
+      <div class="r3">
+        <div class="fg"><label>Invoice Number <sup class="req">*</sup></label><input type="text" id="invoiceNo" autocomplete="off"/></div>
+        <div class="fg"><label>Invoice Date <sup class="req">*</sup></label><input type="date" id="invoiceDate"/></div>
+        <div class="fg"><label>Due Date</label><input type="date" id="dueDate"/></div>
+      </div>
+    </div>
+
+    <!-- Service Provider -->
+    <div class="card">
+      <div class="card-title">🏭 Service Provider (Tractor Owner)</div>
+      <div class="r2">
+        <div class="fg"><label>Name / Farm Name <sup class="req">*</sup></label><input type="text" id="ownerName" autocomplete="name"/></div>
+        <div class="fg"><label>Mobile Number</label><input type="tel" id="ownerPhone" inputmode="tel"/></div>
+      </div>
+      <div class="r1"><div class="fg"><label>Address / Village</label><input type="text" id="ownerAddress"/></div></div>
+      <div class="r2">
+        <div class="fg"><label>GST / PAN (optional)</label><input type="text" id="ownerGST" autocomplete="off"/></div>
+        <div class="fg"><label>Bank / UPI (optional)</label><input type="text" id="ownerBank" autocomplete="off"/></div>
+      </div>
+    </div>
+
+    <!-- Farmer -->
+    <div class="card">
+      <div class="card-title">👨‍🌾 Customer (Farmer)</div>
+      <div class="r2">
+        <div class="fg"><label>Farmer Name <sup class="req">*</sup></label><input type="text" id="farmerName" autocomplete="name"/></div>
+        <div class="fg"><label>Mobile Number</label><input type="tel" id="farmerPhone" inputmode="tel"/></div>
+      </div>
+      <div class="r1"><div class="fg"><label>Farm / Village Address</label><input type="text" id="farmerAddress"/></div></div>
+    </div>
+
+    <!-- Tractor -->
+    <div class="card">
+      <div class="card-title">🚜 Tractor &amp; Equipment</div>
+      <div class="r3">
+        <div class="fg"><label>Tractor Model</label><input type="text" id="tractorModel" autocomplete="off"/></div>
+        <div class="fg"><label>Registration No.</label><input type="text" id="tractorReg" autocomplete="off"/></div>
+        <div class="fg"><label>Horse Power (HP)</label><input type="number" id="tractorHP" min="0" inputmode="numeric"/></div>
+      </div>
+      <div class="r3">
+        <div class="fg"><label>Implement</label>
+          <select id="implement"><option value="">— Select —</option>
+            <option>Cultivator</option><option>Rotavator</option><option>Disc Harrow</option>
+            <option>MB Plough</option><option>Disc Plough</option><option>Leveller / Blade</option>
+            <option>Trolley / Transport</option><option>Seed Drill</option><option>Thresher</option>
+            <option>Trailer</option><option>Sprayer</option><option>Other</option>
+          </select></div>
+        <div class="fg"><label>Operator / Driver</label><input type="text" id="operatorName" autocomplete="name"/></div>
+        <div class="fg"><label>Fuel Type</label>
+          <select id="fuelType"><option value="">— Select —</option>
+            <option>Diesel</option><option>Petrol</option><option>Electric</option>
+          </select></div>
+      </div>
+    </div>
+
+    <!-- Work Details -->
+    <div class="card">
+      <div class="card-title">🌾 Work &amp; Service Details</div>
+      <div class="r3">
+        <div class="fg"><label>Work Start Date</label><input type="date" id="workStart"/></div>
+        <div class="fg"><label>Work End Date</label><input type="date" id="workEnd"/></div>
+        <div class="fg"><label>Crop / Land Type</label><input type="text" id="cropType" autocomplete="off"/></div>
+      </div>
+      <div class="r3">
+        <div class="fg"><label>Land Area</label><input type="number" id="landArea" step="0.01" min="0" inputmode="decimal" oninput="recalculate()"/></div>
+        <div class="fg"><label>Area Unit</label>
+          <select id="areaUnit"><option value="">— Select —</option>
+            <option>Acre</option><option>Hectare</option><option>Bigha</option><option>Guntha</option>
+          </select></div>
+        <div class="fg"><label>Charge Basis</label>
+          <select id="rateBasis" onchange="onRateBasisChange()"><option value="">— Select —</option>
+            <option value="hour">Per Hour</option><option value="acre">Per Acre</option>
+            <option value="day">Per Day</option><option value="trip">Per Trip</option>
+          </select></div>
+      </div>
+      <div class="r2 hidden" id="rateRow">
+        <div class="fg"><label id="wQtyLbl">Quantity</label><input type="number" id="workQty" step="0.5" min="0" inputmode="decimal" oninput="recalculate()"/></div>
+        <div class="fg"><label id="wRateLbl">Rate (₹)</label><input type="number" id="workRate" min="0" inputmode="decimal" oninput="recalculate()"/></div>
+      </div>
+    </div>
+
+    <!-- Line Items -->
+    <div class="card">
+      <div class="card-title">📦 Additional Service Items <button class="btn-add-row" onclick="addLineItem()" type="button">+ Add Row</button></div>
+      <div class="tbl-scroll">
+        <table class="line-tbl">
+          <thead><tr>
+            <th class="cn">#</th><th class="cd">Description</th><th class="cu">Unit</th>
+            <th class="cq">Qty</th><th class="cr">Rate (₹)</th><th class="ca">Amount (₹)</th><th class="cx"></th>
+          </tr></thead>
+          <tbody id="lineBody"></tbody>
+        </table>
+      </div>
+      <p class="hint">Add extra services like loading, repairs, etc.</p>
+    </div>
+
+    <!-- Charges -->
+    <div class="card">
+      <div class="card-title">⛽ Additional Charges</div>
+      <div class="r2">
+        <div class="fg"><label>Diesel / Fuel Cost (₹)</label><input type="number" id="fuelCost" min="0" inputmode="decimal" oninput="recalculate()"/></div>
+        <div class="fg"><label>Operator Wage (₹)</label><input type="number" id="operatorWage" min="0" inputmode="decimal" oninput="recalculate()"/></div>
+        <div class="fg"><label>Transport / Travel (₹)</label><input type="number" id="travelCharge" min="0" inputmode="decimal" oninput="recalculate()"/></div>
+        <div class="fg"><label>Other Charges (₹)</label><input type="number" id="otherCharge" min="0" inputmode="decimal" oninput="recalculate()"/></div>
+      </div>
+    </div>
+
+    <!-- Tax -->
+    <div class="card">
+      <div class="card-title">🧮 Discount &amp; Tax</div>
+      <div class="r2">
+        <div class="fg"><label>Discount (%)</label><input type="number" id="discountPct" min="0" max="100" step="0.01" inputmode="decimal" oninput="recalculate()"/></div>
+        <div class="fg"><label>GST Rate</label>
+          <select id="gstRate" onchange="recalculate()">
+            <option value="0">0% — Exempt</option><option value="5">5%</option>
+            <option value="12">12%</option><option value="18">18%</option>
+          </select></div>
+        <div class="fg"><label>Advance Received (₹)</label><input type="number" id="advancePaid" min="0" inputmode="decimal" oninput="recalculate()"/></div>
+        <div class="fg"><label>Payment Mode</label>
+          <select id="payMode"><option value="">— Select —</option>
+            <option>Cash</option><option>UPI / PhonePe</option><option>GPay</option>
+            <option>Paytm</option><option>Bank Transfer / NEFT</option>
+            <option>Cheque</option><option>Pending</option>
+          </select></div>
+      </div>
+    </div>
+
+    <!-- Remarks -->
+    <div class="card">
+      <div class="card-title">📝 Remarks / Terms</div>
+      <div class="fg"><label>Remarks</label><textarea id="remarks" rows="3"></textarea></div>
+    </div>
+
+    <!-- Live Totals -->
+    <div class="tot-panel">
+      <div class="tot-header">Live Calculation</div>
+      <div class="tot-body">
+        <div class="tr-row"><span>Service Charge</span><span id="t-svc">₹ 0.00</span></div>
+        <div class="tr-row"><span>Line Items</span><span id="t-lines">₹ 0.00</span></div>
+        <div class="tr-row"><span>Additional Charges</span><span id="t-extra">₹ 0.00</span></div>
+        <div class="tot-sep"></div>
+        <div class="tr-row"><span>Subtotal</span><span id="t-sub">₹ 0.00</span></div>
+        <div class="tr-row hidden" id="discRow"><span id="discLbl">Discount</span><span id="t-disc" class="neg">—</span></div>
+        <div class="tr-row hidden" id="gstRow"><span id="gstLbl">GST</span><span id="t-gst">₹ 0.00</span></div>
+        <div class="tot-sep"></div>
+        <div class="tr-row grand"><span>Grand Total</span><span id="t-grand">₹ 0.00</span></div>
+        <div class="tr-row hidden" id="advRow"><span>Advance Paid</span><span id="t-adv" class="neg">—</span></div>
+        <div class="tr-row bal"><span>Balance Due</span><span id="t-bal">₹ 0.00</span></div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn-p" onclick="goPreview()" type="button">👁 Preview Invoice</button>
+      <button class="btn-s" onclick="openPresetModal()" type="button">💾 Save as Preset</button>
+      <button class="btn-g" onclick="resetAll()" type="button">↺ Reset</button>
+    </div>
+  </section>
+
+  <!-- ── TAB: PRESETS ── -->
+  <section class="tab" id="tab-presets">
+    <div class="page-head"><h1>⚡ Presets Manager</h1><p>Save common setups. One click fills the form instantly.</p></div>
+    <div class="card">
+      <div class="card-title">💾 Save Current Form as Preset</div>
+      <div class="r2">
+        <div class="fg"><label>Preset Name</label><input type="text" id="presetNameField" placeholder="e.g. Mahindra 475 Setup" autocomplete="off"/></div>
+        <div class="fg fg-end"><button class="btn-p" onclick="savePresetDirect()" type="button">💾 Save Preset</button></div>
+      </div>
+      <p class="hint">Saves: Owner info · Tractor details · Rates · Payment mode. Not saved: farmer name, dates, invoice number, line items.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 Saved Presets</div>
+      <div id="presetListEl"><p class="empty-msg">No presets yet. Fill the form and save a preset above.</p></div>
+    </div>
+    <div class="card">
+      <div class="card-title">ℹ️ How Presets Work</div>
+      <ul class="info-list">
+        <li>Presets save your <strong>service provider, tractor setup and charge rates</strong>.</li>
+        <li>Applied with a single click from the ⚡ Quick Apply bar or this page.</li>
+        <li>All presets are stored <strong>only in your browser</strong> — never uploaded.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── TAB: PREVIEW ── -->
+  <section class="tab" id="tab-preview">
+    <div class="page-head"><h1>Invoice Preview</h1><p>Invoice always prints on white regardless of theme.</p></div>
+    <div class="preview-bar">
+      <button class="btn-p" onclick="switchTab('export')" type="button">📤 Export</button>
+      <button class="btn-g" onclick="switchTab('builder')" type="button">✏️ Edit</button>
+    </div>
+    <div class="invoice-paper" id="invoicePaper">
+      <p class="empty-msg">Complete the Builder and click "Preview Invoice".</p>
+    </div>
+  </section>
+
+  <!-- ── TAB: EXPORT ── -->
+  <section class="tab" id="tab-export">
+    <div class="page-head"><h1>Export Invoice</h1><p>All exports run on your device. Nothing is uploaded. 100% offline.</p></div>
+    <div class="exp-grid">
+      <div class="exp-card" onclick="exportPDF()">
+        <div class="exp-ico">📄</div><div class="exp-name">PDF</div><div class="exp-ext">.pdf</div>
+        <div class="exp-desc">Print-ready invoice. Share via WhatsApp or email.</div>
+        <button class="exp-btn c-red" type="button">⬇ Download PDF</button>
+      </div>
+      <div class="exp-card" onclick="exportExcel()">
+        <div class="exp-ico">📊</div><div class="exp-name">Excel</div><div class="exp-ext">.xlsx</div>
+        <div class="exp-desc">Full spreadsheet with all data &amp; calculations.</div>
+        <button class="exp-btn c-green" type="button">⬇ Download Excel</button>
+      </div>
+      <div class="exp-card" onclick="exportWord()">
+        <div class="exp-ico">📝</div><div class="exp-name">Word</div><div class="exp-ext">.docx</div>
+        <div class="exp-desc">Editable Word doc. Works with MS Word &amp; LibreOffice.</div>
+        <button class="exp-btn c-blue" type="button">⬇ Download Word</button>
+      </div>
+      <div class="exp-card" onclick="exportCSV()">
+        <div class="exp-ico">🗒️</div><div class="exp-name">CSV</div><div class="exp-ext">.csv</div>
+        <div class="exp-desc">For Tally, accounting software, or data imports.</div>
+        <button class="exp-btn c-amber" type="button">⬇ Download CSV</button>
+      </div>
+    </div>
+    <div class="offline-note">🔒 100% Offline — All export engines are bundled locally — No internet needed</div>
+    <div class="req-note">Required: Invoice Number, Invoice Date, Owner Name, Farmer Name.</div>
+  </section>
+
+</main>
+
+<!-- ABOUT MODAL -->
+<div class="modal-bg" id="aboutBg"></div>
+<div class="modal" id="aboutModal">
+  <button class="modal-x" id="aboutClose"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <div class="about-inner">
+    <div class="about-logo">🚜</div>
+    <h2 class="about-app">KisaanBill</h2>
+    <p class="about-tag">Tractor Rent Invoice Builder</p>
+    <span class="about-ver">v5.0 · 100% Offline</span>
+    <div class="about-sep"></div>
+    <div class="about-dev">
+      <div class="dev-label">DEVELOPED BY</div>
+      <div class="dev-name">Tukaram Hankare</div>
+      <div class="dev-edu">Studied from Solapur University, Solapur</div>
+      <div class="dev-roles">Farmer &nbsp;·&nbsp; Coder &nbsp;·&nbsp; Web Developer</div>
+    </div>
+    <div class="about-sep"></div>
+    <ul class="about-list">
+      <li>✅ Fully Offline — all engines bundled locally</li>
+      <li>✅ Export: PDF, Excel (.xlsx), Word (.docx), CSV</li>
+      <li>✅ Preset Manager — one-click auto-fill</li>
+      <li>✅ 4 Themes: Light, Gray, Premium Gray, Dark</li>
+      <li>✅ Indian number system (Lakh / Crore)</li>
+      <li>✅ Responsive — works on all Android &amp; iOS</li>
+    </ul>
+    <p class="about-copy">© 2025 KisaanBill &nbsp;·&nbsp; Made with ❤️ for Indian Farmers 🇮🇳</p>
+  </div>
+</div>
+
+<!-- PRESET SAVE MODAL -->
+<div class="modal-bg" id="presetBg"></div>
+<div class="modal modal-sm" id="presetModal">
+  <button class="modal-x" id="presetClose"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <h3 class="modal-title">💾 Save as Preset</h3>
+  <div class="fg" style="margin:14px 0 16px">
+    <label>Preset Name</label>
+    <input type="text" id="presetNameModal" placeholder="e.g. My Mahindra Setup" autocomplete="off"/>
+  </div>
+  <div class="modal-actions">
+    <button class="btn-p" onclick="confirmSavePreset()" type="button">Save</button>
+    <button class="btn-g" onclick="closePresetModal()" type="button">Cancel</button>
+  </div>
+</div>
+
+<!-- LOADER -->
+<div class="loader-bg" id="loaderBg">
+  <div class="loader-box">
+    <div class="spinner"></div>
+    <p id="loaderMsg">Please wait…</p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- LOCAL ENGINES — 100% offline -->
+<script src="libs/pdf-engine.js"></script>
+<script src="libs/excel-engine.js"></script>
+<script src="libs/docx-engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
